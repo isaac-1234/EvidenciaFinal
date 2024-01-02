@@ -32,3 +32,4 @@ public class Appointment {
         return id + "," + dateTime + "," + reason + "," + doctor.getId() + "," + patient.getId();
     }
 }
+//hola como estas
