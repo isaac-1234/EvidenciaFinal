@@ -6,19 +6,20 @@ public class Main {
         
         System.out.println("\n\t\tHola Bienvenido al sistema de salud. Por favor ingrese su usuario y contrasenia:\n");
         Scanner scanner = new Scanner (System.in);
-        System.out.print("Usuario");  
+        System.out.print("Usuario:\n");  
         String usuario = scanner.next();
-        System.out.print("Contrasenia");  
+        System.out.print("Contrasenia:\n");  
         String contrasenia = scanner.next();
         scanner.close();
 
         System.out.println("Su usuario es: " + usuario);
         System.out.println("Su contrasenia es: " + contrasenia);
         
-
-
-
         AppointmentManager manager = new AppointmentManager();
+        Usuarios usuario1 = new Usuarios("Isaac", "12345678");
+        Usuarios usuario2 = new Usuarios("Caleb", "87654321");
+        manager.addUsuario (usuario1);
+        manager.addUsuario(usuario2);
 
         // Registro de nuevos doctores
         Doctor doctor1 = new Doctor("D-01", "Dr. Horacio Padilla", "Pediatra");
@@ -39,9 +40,9 @@ public class Main {
         manager.createAppointment(appointment2);
 
         // Guardar los datos en archivos
-        manager.saveData("doctors.csv", "patients.csv", "appointments.csv");
+        manager.saveData("doctors.csv", "patients.csv", "appointments.csv", "usuarios.csv");
 
         // Cargar los datos desde los archivos
-        manager.loadData("doctors.csv", "patients.csv", "appointments.csv");
+        manager.loadData("doctors.csv", "patients.csv", "appointments.csv", "usuarios.csv");
     }
 }

@@ -8,15 +8,20 @@ import java.io.*;
 
 public class AppointmentManager {
     private List<Doctor> doctors;
+    private List<Usuarios>usuarios;
     private List<Patient> patients;
     private List<Appointment> appointments;
     private Map<String, String> admon;
 
     public AppointmentManager(){
+        usuarios = new ArrayList<>();
         doctors = new ArrayList<>();
         patients = new ArrayList<>();
         appointments = new ArrayList<>();
         admon = new HashMap<>();
+    }
+    public void addUsuario (Usuarios usuario){
+        usuarios.add(usuario);
     }
     public void addDoctor (Doctor doctor){
         doctors.add(doctor);
@@ -34,9 +39,16 @@ public class AppointmentManager {
         return admon.containsKey(username) && admon.get(username).equals(password);
     }
 
-    public void saveData(String doctorsFile, String patientsFile, String appointmentsFile) {
+    public void saveData(String doctorsFile, String patientsFile, String appointmentsFile, String usuariosFile){
         try {
-            FileWriter writer = new FileWriter(doctorsFile);
+
+            FileWriter writer = new FileWriter(usuariosFile);
+            for (Usuarios usuario : usuarios) {
+                writer.write(usuario.toString() + "\n"); 
+            }
+            writer.close();
+
+            writer = new FileWriter(doctorsFile);
             for (Doctor doctor : doctors) {
                 writer.write(doctor.toString() + "\n");
             }
@@ -46,18 +58,23 @@ public class AppointmentManager {
             for (Patient patient : patients) {
                 writer.write(patient.toString() + "\n");
             }
+            writer.close();
+            
             writer = new FileWriter(appointmentsFile);
             for (Appointment appointment : appointments) {
                 writer.write(appointment.toString() + "\n");
+                
             }
             writer.close();
 
             System.out.println("Datos guardados correctamente.");
+            
+
         } catch (IOException e) {
             System.out.println("Error al guardar los datos: " + e.getMessage());
         }
     }
-    public void loadData(String doctorsFile, String patientsFile, String appointmentsFile) {
+    public void loadData(String doctorsFile, String patientsFile, String appointmentsFile, String usuariosFile) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(doctorsFile));
             String line;
@@ -65,6 +82,14 @@ public class AppointmentManager {
                 String[] fields = line.split(",");
                 Doctor doctor = new Doctor(fields[0], fields[1], fields[2]);
                 doctors.add(doctor);
+            }
+            reader.close();
+
+            reader = new BufferedReader(new FileReader(usuariosFile));
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                Usuarios usuario = new Usuarios(fields[0], fields[1]);
+                usuarios.add(usuario);
             }
             reader.close();
 
