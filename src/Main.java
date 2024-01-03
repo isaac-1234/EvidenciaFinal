@@ -1,5 +1,23 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+                
+        
+        System.out.println("\n\t\tHola Bienvenido al sistema de salud. Por favor ingrese su usuario y contrasenia:\n");
+        Scanner scanner = new Scanner (System.in);
+        System.out.print("Usuario");  
+        String usuario = scanner.next();
+        System.out.print("Contrasenia");  
+        String contrasenia = scanner.next();
+        scanner.close();
+
+        System.out.println("Su usuario es: " + usuario);
+        System.out.println("Su contrasenia es: " + contrasenia);
+        
+
+
+
         AppointmentManager manager = new AppointmentManager();
 
         // Registro de nuevos doctores
